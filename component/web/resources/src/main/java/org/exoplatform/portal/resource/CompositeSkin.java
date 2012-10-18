@@ -129,8 +129,11 @@ class CompositeSkin implements Skin
                params.put(ResourceRequestHandler.COMPRESS_QN, compress ? "min" : "");
                params.put(WebAppController.HANDLER_PARAM, "skin");
                params.put(ResourceRequestHandler.RESOURCE_QN, resource);
+               
                StringBuilder url = new StringBuilder();
-               context.renderURL(params, new URIWriter(url, MimeType.PLAIN));
+               URIWriter writer = new URIWriter(url, MimeType.PLAIN);
+               writer.append("/" + service.portalContainerName);
+               context.renderURL(params, writer);
 
                //
                return url.toString();

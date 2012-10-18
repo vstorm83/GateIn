@@ -34,7 +34,6 @@ import java.util.Map;
 import org.exoplatform.component.test.web.WebAppImpl;
 import org.exoplatform.container.PortalContainer;
 import org.exoplatform.test.mocks.servlet.MockServletContext;
-import org.exoplatform.test.mocks.servlet.MockServletRequest;
 import org.exoplatform.web.ControllerContext;
 import org.exoplatform.web.application.javascript.JavascriptConfigParser;
 import org.exoplatform.web.application.javascript.JavascriptConfigService;
@@ -153,7 +152,7 @@ public class TestJavascriptConfigService extends AbstractWebResourceTest
 
    public void testGetJSConfig() throws Exception
    {            
-      JSONObject config = jsService.getJSConfig(CONTROLLER_CONTEXT, null);
+      JSONObject config = jsService.getJSConfig(CONTROLLER_CONTEXT, null, "");
 
       //All SCRIPTS and remote resource have to had dependencies declared in shim configuration
       JSONObject shim = config.getJSONObject("shim");
@@ -187,12 +186,12 @@ public class TestJavascriptConfigService extends AbstractWebResourceTest
    public void testGenerateURL() throws Exception
    {
       ResourceId remote1 = new ResourceId(ResourceScope.SHARED, "remote1");
-      String remoteURL = jsService.generateURL(CONTROLLER_CONTEXT, remote1, false, null);
+      String remoteURL = jsService.generateURL(CONTROLLER_CONTEXT, remote1, false, null, "");
       //Return remote module/script url as it's  declared in gatein-resources.xml
       assertEquals("http://js/remote1.js", remoteURL);
       
       ResourceId module1 = new ResourceId(ResourceScope.SHARED, "module1");      
-      remoteURL = jsService.generateURL(CONTROLLER_CONTEXT, module1, false, null);
+      remoteURL = jsService.generateURL(CONTROLLER_CONTEXT, module1, false, null, "");
       assertEquals("mock_url_of_module1.js", remoteURL);
    }
    

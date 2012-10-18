@@ -289,7 +289,7 @@ public abstract class AbstractSkinServiceTest extends AbstractKernelTest
          {
             parameters = matcher.next();
          }
-         return new ControllerContext(null, router, request, null, parameters);
+         return new ControllerContext(router, parameters);
       }
       catch (MalformedURLException e)
       {

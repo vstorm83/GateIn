@@ -8,6 +8,7 @@ import org.gatein.common.logging.Logger;
 import org.gatein.common.logging.LoggerFactory;
 import org.gatein.portal.controller.resource.ResourceRequestHandler;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -45,16 +46,13 @@ public class SkinResourceRequestHandler extends WebRequestHandler
    }
 
    @Override
-   public boolean execute(final ControllerContext context) throws Exception
+   public boolean execute(final ControllerContext context, HttpServletRequest request, final HttpServletResponse response) throws Exception
    {
       String compressParam = context.getParameter(ResourceRequestHandler.COMPRESS_QN);
       boolean compress = "min".equals(compressParam);
 
-      //
-      final HttpServletResponse response = context.getResponse();
-
       // Check if cached resource has not been modifed, return 304 code
-      long ifModifiedSince = context.getRequest().getDateHeader(IF_MODIFIED_SINCE);
+      long ifModifiedSince = request.getDateHeader(IF_MODIFIED_SINCE);
       long cssLastModified = skinService.getLastModified(context);
       if (isNotModified(ifModifiedSince, cssLastModified))
       {

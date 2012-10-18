@@ -129,7 +129,10 @@ class SimpleSkin implements SkinConfig
                params.put(ResourceRequestHandler.COMPRESS_QN, compress ? "min" : "");
                params.put(WebAppController.HANDLER_PARAM, "skin");
                params.put(ResourceRequestHandler.RESOURCE_QN, resource);
+               
                StringBuilder url = new StringBuilder();
+               URIWriter writer = new URIWriter(url, MimeType.PLAIN);
+               writer.append("/" + service_.portalContainerName);
                context.renderURL(params, new URIWriter(url, MimeType.PLAIN));
 
                //

@@ -914,8 +914,11 @@ public class SkinService extends AbstractResourceService implements Startable
                   params.put(ResourceRequestHandler.COMPRESS_QN, merge ? "min" : "");
                   params.put(WebAppController.HANDLER_PARAM, "skin");
                   params.put(ResourceRequestHandler.RESOURCE_QN, resource);
-                  StringBuilder embeddedPath = new StringBuilder();
-                  context.renderURL(params, new URIWriter(embeddedPath, MimeType.PLAIN));
+                  
+                  StringBuilder embeddedPath = new StringBuilder();                  
+                  URIWriter writer = new URIWriter(embeddedPath, MimeType.PLAIN);
+                  writer.append("/" + portalContainerName);
+                  context.renderURL(params, writer);
 
                   //
                   strReplace.append(matcher.group(1));
